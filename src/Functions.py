@@ -71,14 +71,7 @@ def print_chi_neighbor(order):
         outstring = Somega + S2 
         fout.write(outstring)
     fout.close()
-    
-Chi_qx_eq_0     = np.zeros(Iwmax, dtype = np.complex128)
-Chi_qx_eq_pi4   = np.zeros(Iwmax, dtype = np.complex128)
-Chi_qx_eq_pi2   = np.zeros(Iwmax, dtype = np.complex128)
-Chi_qx_eq_3pi4  = np.zeros(Iwmax, dtype = np.complex128)
-Chi_qx_eq_kpt   = np.zeros(Iwmax, dtype = np.complex128)
-        
-
+     
 def calculate_chi_period_point(qx_in, qy_in):
     order = 0 # only with 1st neighbor    
     
@@ -97,28 +90,50 @@ def calculate_chi_period_point(qx_in, qy_in):
     Chi_p   = Chi_p + 1.0/((1/Chi_imp) + lambda_r - J_q)
     return Chi_p
  
- 
 def calculate_chi_along_x(): 
+    axis_name = "0x"
     qy = 0
-    
+   
     qx = 0
-    Chi_qx_eq_0     = calculate_chi_period_point(qx, qy)
+    Chi_q_axis_eq_0     = calculate_chi_period_point(qx, qy)
     
     qx = kpt/4
-    Chi_qx_eq_pi4   = calculate_chi_period_point(qx, qy)
+    Chi_q_axis_eq_pi4   = calculate_chi_period_point(qx, qy)
     
     qx = kpt/2
-    Chi_qx_eq_pi2   = calculate_chi_period_point(qx, qy)
+    Chi_q_axis_eq_pi2   = calculate_chi_period_point(qx, qy)
     
     qx = 3 * kpt/4
-    Chi_qx_eq_3pi4  = calculate_chi_period_point(qx, qy)
+    Chi_q_axis_eq_3pi4  = calculate_chi_period_point(qx, qy)
     
     qx = kpt
-    Chi_qx_eq_kpt   = calculate_chi_period_point(qx, qy)
+    Chi_q_axis_eq_kpt   = calculate_chi_period_point(qx, qy)
     
-    print_chi_period_along_one_axis(Chi_qx_eq_0, Chi_qx_eq_pi4, Chi_qx_eq_pi2, Chi_qx_eq_3pi4, Chi_qx_eq_kpt, "Ox")
+    print_chi_period_along_one_axis(Chi_q_axis_eq_0, Chi_q_axis_eq_pi4, 
+                                    Chi_q_axis_eq_pi2, Chi_q_axis_eq_3pi4, Chi_q_axis_eq_kpt, axis_name)
     
+def calculate_chi_along_y(): 
     
+    axis_name = "0y"
+    qx = 0
+
+    qy = 0
+    Chi_q_axis_eq_0     = calculate_chi_period_point(qx, qy)
+    
+    qy = kpt/4
+    Chi_q_axis_eq_pi4   = calculate_chi_period_point(qx, qy)
+    
+    qy = kpt/2
+    Chi_q_axis_eq_pi2   = calculate_chi_period_point(qx, qy)
+    
+    qy = 3 * kpt/4
+    Chi_q_axis_eq_3pi4  = calculate_chi_period_point(qx, qy)
+    
+    qy = kpt
+    Chi_q_axis_eq_kpt   = calculate_chi_period_point(qx, qy)
+    
+    print_chi_period_along_one_axis(Chi_q_axis_eq_0, Chi_q_axis_eq_pi4, 
+                                    Chi_q_axis_eq_pi2, Chi_q_axis_eq_3pi4, Chi_q_axis_eq_kpt, axis_name)  
     
 def print_chi_period_along_one_axis(chi_00, chi_pi_4, chi_pi_2, chi_3_pi_4, chi_2_pi, axis):
     filename = "chi_period_along_" + axis + ".dat"
@@ -132,5 +147,6 @@ def print_chi_period_along_one_axis(chi_00, chi_pi_4, chi_pi_2, chi_3_pi_4, chi_
         Sqx3kpt4 = repr(chi_3_pi_4[ch].real) +"\t"+ repr(chi_3_pi_4[ch].imag) +"\t"
         Sqxkpt = repr(chi_2_pi[ch].real) +"\t"+ repr(chi_2_pi[ch].imag) +"\n"
    
-    outstring = Somega + Sqx0 + Sqxkpt4 + Sqxkpt2 + Sqx3kpt4 + Sqxkpt
-    fout.write(outstring)
+        outstring = Somega + Sqx0 + Sqxkpt4 + Sqxkpt2 + Sqx3kpt4 + Sqxkpt
+        fout.write(outstring)
+    fout.close()

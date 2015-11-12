@@ -12,7 +12,7 @@ def calculate_chi_of_neighbors():
     
 def calculate_chi_of_period():
     suscept_calc.calculate_chi_along_x()
-    
+    suscept_calc.calculate_chi_along_y()
 
 calculate_chi_of_neighbors()
 calculate_chi_of_period()
